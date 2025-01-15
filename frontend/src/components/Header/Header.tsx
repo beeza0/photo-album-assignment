@@ -39,9 +39,9 @@ const Header = () => {
           >
             My Albums
           </Button>
-          {/* <Button color="inherit" onClick={() => navigate("/add-photo")}>
+          <Button color="inherit" onClick={() => navigate("/add-photo")}>
             Add photo
-          </Button> */}
+          </Button>
           <Button color="inherit" onClick={handleLogOut}>
             Logout
           </Button>
