@@ -4,18 +4,28 @@ import Signup from "./pages/Signup";
 import MyUsers from "./pages/MyUsers";
 import UserAlbums from "./pages/UserAlbums";
 import AlbumPhotos from "./pages/AlbumPhotos";
+import AddPhoto from "./pages/AddPhoto";
+import { useContext } from "react";
+import UserContext from "./context/UserContext";
 
-const Routers = () => (
-  <BrowserRouter>
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/myusers" element={<MyUsers />} />
-      <Route path="/user-albums/:id" element={<UserAlbums />} />
-      <Route path="/album-photos/:id" element={<AlbumPhotos />} />
-      {/* <Route path="/not-found" element={<h1>NOT FOUND</h1>} /> */}
-    </Routes>
-  </BrowserRouter>
-);
+const Routers = () => {
+  const { user } = useContext(UserContext);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        {user.id && <Route path="/myusers" element={<MyUsers />} />}
+        {user.id && <Route path="/user-albums/:id" element={<UserAlbums />} />}
+        {user.id && (
+          <Route path="/album-photos/:id" element={<AlbumPhotos />} />
+        )}
+        {user.id && <Route path="/add-photo" element={<AddPhoto />} />}
+        <Route path="*" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default Routers;

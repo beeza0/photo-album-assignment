@@ -3,7 +3,8 @@ import { User } from "../types/users.types";
 
 interface IUserContext {
   user: User;
-  setUser: (user: User) => void;
+  handleSetUser: (user: User) => void;
+  handleLogOut: () => void;
 }
 
 const UserContext = createContext<IUserContext>({} as IUserContext);

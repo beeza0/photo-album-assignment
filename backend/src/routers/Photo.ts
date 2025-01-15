@@ -10,4 +10,14 @@ router.get("/:albumId", async (req, res) => {
   res.send(photos.data);
 });
 
+router.post("/create", async (req, res) => {
+  const { albumId, title, url } = req.body;
+  const response = await axios.post(`${API_URL}/photos`, {
+    albumId,
+    title,
+    url,
+  });
+  res.send(response.data);
+});
+
 module.exports = router;

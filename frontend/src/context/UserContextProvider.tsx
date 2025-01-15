@@ -9,10 +9,24 @@ interface UserContextProviderProps {
 const UserContextProvider: React.FC<UserContextProviderProps> = ({
   children,
 }) => {
-  const [user, setUser] = React.useState({} as User);
+  const getInitialState = () => {
+    const user = localStorage.getItem("user");
+    return user ? JSON.parse(user) : {};
+  };
+  const [user, setUser] = React.useState(getInitialState());
+
+  const handleSetUser = (user: User) => {
+    setUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
+  };
+
+  const handleLogOut = () => {
+    setUser({});
+    localStorage.setItem("user", "");
+  };
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, handleSetUser, handleLogOut }}>
       {children}
     </UserContext.Provider>
   );

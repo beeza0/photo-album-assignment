@@ -19,15 +19,15 @@ const Signup = () => {
   } = useForm<SignupForm>();
 
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { handleSetUser } = useContext(UserContext);
 
   const onSubmit = async (data: SignupForm) => {
     const response = await signup(data.username, data.email);
     if (response === "User already exists") {
       alert(response);
     } else {
-      setUser(response as User);
-      navigate("/home");
+      handleSetUser(response as User);
+      navigate("/myusers");
     }
   };
 

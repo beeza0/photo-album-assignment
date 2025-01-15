@@ -8,6 +8,10 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { login } from "../../services/users/users";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
+import { User } from "../../types/users.types";
 
 interface LoginForm {
   username: string;
@@ -20,9 +24,17 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginForm>();
 
+  const navigate = useNavigate();
+  const { handleSetUser } = useContext(UserContext);
+
   const onSubmit = async (data: LoginForm) => {
     const response = await login(data.username);
-    console.log(response);
+    if (response === "User not found") {
+      alert(response);
+    } else {
+      handleSetUser(response as User);
+      navigate("/myusers");
+    }
   };
 
   return (

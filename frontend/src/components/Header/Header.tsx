@@ -10,7 +10,7 @@ import UserContext from "../../context/UserContext";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user, handleLogOut } = useContext(UserContext);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -24,16 +24,26 @@ const Header = () => {
             sx={{ mr: 2 }}
           ></IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Photo Album Application
+            Photo Album App - {user.username}
           </Typography>
           <Button color="inherit" onClick={() => navigate("/myusers")}>
             My Users
           </Button>
           <Button
             color="inherit"
-            onClick={() => navigate(`/user-album/${user.id}`)}
+            onClick={() =>
+              navigate(`/user-albums/${user.id}`, {
+                state: { username: user.username, email: user.email },
+              })
+            }
           >
             My Albums
+          </Button>
+          {/* <Button color="inherit" onClick={() => navigate("/add-photo")}>
+            Add photo
+          </Button> */}
+          <Button color="inherit" onClick={handleLogOut}>
+            Logout
           </Button>
         </Toolbar>
       </AppBar>
